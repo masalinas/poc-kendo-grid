@@ -1,0 +1,32 @@
+.layout-container {
+    display: grid;
+    grid-template-rows: 30px auto 30px;    
+}
+
+.layout-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 9px;    
+}
+
+.layout-toolbar-filters, .layout-toolbar-configuration {
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+}
+
+.layout-toolbar-configuration> button {
+    margin-left: 5px;
+}
+
+.layout-grid {
+}
+
+.layout-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;    
+}

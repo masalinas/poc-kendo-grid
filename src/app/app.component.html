@@ -1,0 +1,54 @@
+
+<div class="layout-container">
+  <div class="layout-toolbar">
+      <div class="layout-toolbar-filters">
+        <kendo-dropdownlist [data]="dropDownItems" 
+                            [defaultItem]="defaultItem" 
+                            textField="text" 
+                            valueField="value"
+                            (valueChange)="handleFilterChange($event)">
+        </kendo-dropdownlist>
+      </div>
+
+      <div class="layout-toolbar-configuration">
+        <button class="k-button" (click)="saveGridSettings(gridProducts)">Save current state</button>
+        <button
+              class="k-button"
+              *ngIf="savedStateExists"
+              (click)="gridSettings = mapGridSettings(persistingService.get('gridSettings'))">Load saved state
+        </button>
+      </div>
+  </div>
+
+  <div [ngStyle]="{'height.px': pageHeight}">
+    <kendo-grid #gridProducts
+                [data]="gridSettings.gridData" 
+                [pageSize]="gridSettings.state.take"
+                [skip]="gridSettings.state.skip"
+                [sort]="gridSettings.state.sort"
+                [filter]="gridSettings.state.filter"
+                [sortable]="true"
+                [pageable]="true"                
+                [filterable]="true"                 
+                [style.height]="'100%'"
+                (dataStateChange)="dataStateChange($event)">
+      <kendo-grid-column field="ProductID" title="ID" [width]="130">
+      </kendo-grid-column>
+      <kendo-grid-column field="ProductName" title="Product Name">
+      </kendo-grid-column>
+      <kendo-grid-column field="Category.CategoryName" title="Category">
+      </kendo-grid-column>
+      <kendo-grid-column field="UnitPrice" title="Unit Price" [width]="140" format="{0:c}">
+      </kendo-grid-column>
+      <kendo-grid-column field="Discontinued" [width]="140" filter="boolean">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <input type="checkbox" [checked]="dataItem.Discontinued" disabled />
+        </ng-template>
+      </kendo-grid-column>
+    </kendo-grid>
+  </div>
+
+  <div class="layout-footer">
+      <kendo-label text="{{ clock | date: 'dd/mm/yyyy hh:mm:ss a' }}"></kendo-label>
+  </div>
+</div>
